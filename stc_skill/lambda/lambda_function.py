@@ -97,7 +97,30 @@ class SpecificWorkshopInfoIntentHandler(AbstractRequestHandler):
         return is_intent_name("SpecificWorkshopIntent")(handler_input)
     
     def handle(self, handler_input):
-        handler_input.response_builder.speak("This is a placeholder for specific workshop intent")
+        workshopName = handler_input.request_envelope.request.intent.slots["WorkshopName"].value
+
+        speech = {
+            "photoshop"         : "Our photoshop workshop will walk you through the basics and how to start designing in photoshop.",
+            "excel"             : "In this 90 minute hands-on workshop, you will experience the basics of working with Excel including entering text and numbers, using formulas and functions to calculate totals, percentages, and averages, and creating a chart. No prior spreadsheet experience is required.",
+            "word"              : "In this 90 minute hands-on workshop, you will be introduced to the essential elements of Microsoft Word. Upon completion, you will be able to insert, delete, select, move and copy text; apply and change formats; control page breaks and use tables to organize information. You will be able to create a header and footer to repeat information on each page automatically. You will insert a photo, change margins and explore print options. Keyboard shortcuts and right-mouse shortcut menus will be included. No prior Word experience is required, though some experience will provide the most beneficial learning experience.",
+            "powerpoint"        : "In this 90 minute hands-on workshop, you will be introduced to PowerPoint by creating a presentation with formatted text and graphics. You will use PowerPoint views to organize, rearrange and display your presentation. No prior PowerPoint experience is required.",
+            "3d printing"       : "In this 90 minute workshop, you will be introduced to the world of three d printing and its application. We'll walk you through how to create simple three d models and how to prepare them for printing.",
+            "after effects"     : "placeholder",
+            "illustrator"       : "A 90 minute hands on class covering the basic aspects of Adobe Illustrator. Topics covered include basic functionality such as creating and editing paths, objects, outlines, fills, type, bitmap images, and other tools. Additional topics will include design tips and concepts.",
+            "indesign"          : "Adobe InDesign is the preferred program for professional quality publications including flyers and information pamphlets. In this 80 minute hands-on workshop you will be introduced to the basic features of Adobe InDesign including page setup, layout, addition of text and graphics, formatting and discussion of printing issues.",
+            "premier"           : "In this fun hands-on workshop, you will use Adobe Premiere Pro to import digital video footage, cut segments, edit audio, add photos, text, transitions, and effects, as well as rendering and exporting. No prior digital editing experience is necessary.",
+            "final cut"         : "A 90 minute hands on introduction to editing video utilizing Final Cu Pro X. This also serves as a basic introduction to video editing in Final Cut Pro X. Skills learned include: capturing video, cutting video, adding effects, transitions, titles, and basic video conversions (encoding).",
+            "imovie"            : "In this fun hands-on workshop, you will create your first video with easy to use iMovie. You will capture digital video footage, cut segments, add photos, text and transitions. Considerations for recording and playback will be discussed. No prior digital editing experience is necessary",
+            "arduino"           : "In this workshop, we'll introduce you to the arduino, a small micro controller that's capable of a lot!",
+            "audacity"          : "In this workshop, we'll cover how to use audacity, a free audio editing program.",
+            "home automation"   : "placeholder",
+            "raspberry pi"      : "placeholder",
+            "lightroom"         : "placeholder",
+            "vr"                : "This 15 - 20 minute workshop is intended to show students the procedures for operating our VR equipment along with a brief overview of how some of the hardware features function. Completing this workshop is necessary to be able to use the Vive room.",
+            "wordpress"         : "Create your site or blog using WordPress. Customize it with themes, photos, movies, text, and widgets."
+        }.get(workshopName, "Sorry, I can't find that workshop")
+
+        handler_input.response_builder.speak(speech)
         return handler_input.response_builder.response
 
 class FullWorkshopListIntentHandler(AbstractRequestHandler):
@@ -105,7 +128,12 @@ class FullWorkshopListIntentHandler(AbstractRequestHandler):
         return is_intent_name("FullWorkshopListIntent")(handler_input)
     
     def handle(self, handler_input):
-        handler_input.response_builder.speak("This is a placeholder for Full Workshop List Intent")
+        speech = """The workshops we teach are three d printing and making, adobe after effects, 
+            Adobe Illustrator, Adobe InDesign, Adobe Photoshop, Adobe Premiere Pro, Apple Final Cut, 
+            Apple iMovie, Arduino, Audacity, Home Automation, Raspberry Pi, Lightroom, Microsoft Excel, 
+            Microsoft Publisher, Microsoft Word, Virtual Reality, and Wordpress."""
+
+        handler_input.response_builder.speak(speech)
         return handler_input.response_builder.response
 
 class YesIntentHandler(AbstractRequestHandler):
